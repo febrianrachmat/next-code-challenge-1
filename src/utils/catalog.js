@@ -39,3 +39,45 @@ export function getSelectedFilters(catalog, searchParams) {
 
   return { category, subcategory, brand }
 }
+
+export function getProductRelations(catalog, product) {
+  const brand = findById(catalog.brands, product.brandId)
+  const subcategory = findById(catalog.subCategories, brand?.subCategoryId)
+  const category = findById(catalog.categories, subcategory?.categoryId)
+
+  return { brand, subcategory, category }
+}
+
+export function getFilteredProducts(catalog, selectedFilters) {
+  return catalog.products.filter((product) => {
+    const relations = getProductRelations(catalog, product)
+
+    if (
+      selectedFilters.category &&
+      relations.category?.id !== selectedFilters.category.id
+    ) {
+      return false
+    }
+
+    if (
+      selectedFilters.subcategory &&
+      relations.subcategory?.id !== selectedFilters.subcategory.id
+    ) {
+      return false
+    }
+
+    if (selectedFilters.brand && relations.brand?.id !== selectedFilters.brand.id) {
+      return false
+    }
+
+    return true
+  })
+}
+
+export function formatPrice(price) {
+  return new Intl.NumberFormat('id-ID', {
+    style: 'currency',
+    currency: 'IDR',
+    maximumFractionDigits: 0,
+  }).format(price)
+}
