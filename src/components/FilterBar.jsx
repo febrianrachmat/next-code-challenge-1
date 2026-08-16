@@ -67,9 +67,15 @@ export default function FilterBar({ catalog }) {
     )
   }
 
+  function handleReset() {
+    setSearchParams(new URLSearchParams())
+  }
+
+  const hasActiveFilters = Boolean(categoryId || subcategoryId || brandId)
+
   return (
     <form
-      className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-3"
+      className="grid gap-4 rounded-2xl border border-slate-200 bg-white p-5 shadow-sm md:grid-cols-4"
       onSubmit={(event) => event.preventDefault()}
     >
       <label className="flex flex-col gap-2 text-left">
@@ -132,6 +138,17 @@ export default function FilterBar({ catalog }) {
           ))}
         </select>
       </label>
+
+      <div className="flex items-end">
+        <button
+          type="button"
+          onClick={handleReset}
+          disabled={!hasActiveFilters}
+          className="h-11 w-full rounded-xl bg-slate-900 px-4 text-sm font-semibold text-white transition hover:bg-slate-700 disabled:cursor-not-allowed disabled:bg-slate-300"
+        >
+          Reset Filter
+        </button>
+      </div>
     </form>
   )
 }
