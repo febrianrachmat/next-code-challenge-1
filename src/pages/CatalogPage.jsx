@@ -1,4 +1,8 @@
+import { useLoaderData } from 'react-router-dom'
+
 export default function CatalogPage() {
+  const catalog = useLoaderData()
+
   return (
     <main className="min-h-screen bg-slate-50">
       <header className="border-b border-slate-200 bg-white">
@@ -16,8 +20,8 @@ export default function CatalogPage() {
 
       <div className="mx-auto max-w-6xl px-4 py-10">
         <p className="text-slate-600">
-          Catalog filters and product list will be implemented in the next
-          steps.
+          Loaded {catalog.categories.length} categories and{' '}
+          {catalog.products.length} products from the catalog loader.
         </p>
       </div>
     </main>
