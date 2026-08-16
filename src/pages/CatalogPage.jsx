@@ -1,4 +1,5 @@
 import { useLoaderData } from 'react-router-dom'
+import FilterBar from '../components/FilterBar.jsx'
 
 export default function CatalogPage() {
   const catalog = useLoaderData()
@@ -18,11 +19,8 @@ export default function CatalogPage() {
         </div>
       </header>
 
-      <div className="mx-auto max-w-6xl px-4 py-10">
-        <p className="text-slate-600">
-          Loaded {catalog.categories.length} categories and{' '}
-          {catalog.products.length} products from the catalog loader.
-        </p>
+      <div className="mx-auto max-w-6xl space-y-6 px-4 py-8">
+        <FilterBar catalog={catalog} />
       </div>
     </main>
   )
